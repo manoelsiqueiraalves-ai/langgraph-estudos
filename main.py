@@ -148,3 +148,27 @@ async def calculadora(
     print(f"X-GEEK: {x_geek}")
 
     return {"resultado": soma}
+
+
+@app.get("/agente")
+def agente(pergunta: str):
+    pergunta = pergunta.lower()
+
+    if "curso" in pergunta:
+        lista_cursos = [
+            curso["titulo"] for curso in cursos.values()
+        ]
+        return {
+            "resposta": "Aqui estão alguns cursos disponíveis:",
+            "cursos": lista_cursos
+        }
+
+    elif "calculo" in pergunta or "somar" in pergunta:
+        return {
+            "resposta": "Você quer fazer um cálculo. Use o endpoint /calculadora."
+        }
+
+    else:
+        return {
+            "resposta": "Não entendi sua pergunta, mas estou aprendendo!"
+        }
